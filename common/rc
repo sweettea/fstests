@@ -4656,6 +4656,7 @@ _dmsetup_remove()
 
 _dmsetup_create()
 {
+	$UDEV_SETTLE_PROG >/dev/null 2>&1
 	$DMSETUP_PROG create "$@" >>$seqres.full 2>&1 || return 1
 	$DMSETUP_PROG mknodes >/dev/null 2>&1
 	$UDEV_SETTLE_PROG >/dev/null 2>&1
