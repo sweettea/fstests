@@ -146,7 +146,7 @@ _require_encryption_policy_support()
 _scratch_mkfs_encrypted()
 {
 	case $FSTYP in
-	ext4|f2fs)
+	ext4|f2fs|btrfs)
 		_scratch_mkfs -O encrypt
 		;;
 	ubifs)
@@ -162,7 +162,7 @@ _scratch_mkfs_encrypted()
 _scratch_mkfs_sized_encrypted()
 {
 	case $FSTYP in
-	ext4|f2fs)
+	ext4|f2fs|btrfs)
 		MKFS_OPTIONS="$MKFS_OPTIONS -O encrypt" _scratch_mkfs_sized $*
 		;;
 	*)
