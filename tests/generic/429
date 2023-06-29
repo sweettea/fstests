@@ -68,6 +68,12 @@ show_directory_with_key()
 	show_file_contents
 }
 
+# btrfs needs to have dirty data pushed into it before session keyring
+# is unlinked, as it doesn't set up the data encryption key until then.	
+if [ "$FSTYP" = "btrfs" ]; then
+	sync
+fi
+
 # View the directory without the encryption key.  The plaintext names shouldn't
 # exist, but 'cat' each to verify this, which also should create negative
 # dentries.  The no-key names are unpredictable by design, but verify that the
