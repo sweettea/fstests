@@ -53,11 +53,11 @@ for i in {1..50}; do
 done
 for i in {1..50}; do
 	file=$SCRATCH_MNT/v1_policy_dir_1/$i
-	touch $file
+	echo "0" > $file
 	inodes+=("$(stat -c %i $file)")
 
 	file=$SCRATCH_MNT/v2_policy_dir_1/$i
-	touch $file
+	echo "0" > $file
 	inodes+=("$(stat -c %i $file)")
 done
 _scratch_unmount
