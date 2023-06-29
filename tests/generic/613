@@ -69,6 +69,10 @@ echo -n > $tmp.nonces_hex
 echo -n > $tmp.nonces_bin
 for inode in "${inodes[@]}"; do
 	nonce=$(_get_encryption_data_nonce $SCRATCH_DEV $inode)
+	if [ "$FSTYP" == "btrfs" ] && [ "$nonce" == "" ]
+	then
+		nonce=$(_get_encryption_file_nonce $SCRATCH_DEV $inode)
+	fi
 	if (( ${#nonce} != 32 )) || [ -n "$(echo "$nonce" | tr -d 0-9a-fA-F)" ]
 	then
 		_fail "Expected nonce for inode $inode to be 16 bytes (32 hex characters), but got \"$nonce\""
